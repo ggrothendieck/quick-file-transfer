@@ -10,6 +10,7 @@ pub fn resolve_hostname_print_stdout(
     hostname: &str,
     timeout_ms: u64,
     short_circuit: bool,
+    ip4: bool,
 ) -> Result<()> {
     log::info!("Resolving address for {hostname}");
     if let Some(resolved_info) = resolve_mdns_hostname(
@@ -17,7 +18,13 @@ pub fn resolve_hostname_print_stdout(
         timeout_ms,
         short_circuit,
     )? {
-        println!("{resolved_info}");
+        if ip4 {
+            if let Some(ip) = resolved_info.any_ipv4() {
+                println!("{ip}");
+            }
+        } else {
+            println!("{resolved_info}");
+        }
     } else {
         log::error!("Failed resolving {hostname}");
     }
