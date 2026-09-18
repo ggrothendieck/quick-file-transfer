@@ -172,10 +172,11 @@ fn transfer_data(
 
     let mut buf_tcp_stream = tcp_bufwriter(tcp_stream);
 
-    if use_mmap && file.is_some() {
-        log::debug!("Using mmap");
-        let mmap = MemoryMapWrapper::new(file.unwrap())?;
-        let target_read = mmap.flen();
+    if use_mmap {
+        if let Some(file) = file {
+            log::debug!("Using mmap");
+            let mmap = MemoryMapWrapper::new(file)?;
+            let target_read = mmap.flen();
 
         let transferred_bytes = match compression {
             None => {
