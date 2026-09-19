@@ -237,6 +237,7 @@ fn transfer_data(
         };
         return Ok(transferred_bytes);
     }
+    }
 
     // On-stack dynamic dispatch
     let mut bufreader = file_with_bufreader(file.unwrap())?;
