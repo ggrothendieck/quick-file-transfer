@@ -1,7 +1,7 @@
 use std::{net::IpAddr, thread, time::Duration};
 
 use anyhow::Result;
-use mdns_sd::{ServiceDaemon, ServiceInfo};
+use mdns_sd::{IfKind, ServiceDaemon, ServiceInfo};
 
 use crate::{
     config::misc::TransportLayerProtocol,
@@ -18,6 +18,7 @@ pub fn start_mdns_service(
     port: u16,
 ) -> Result<()> {
     let mdns = ServiceDaemon::new()?;
+    mdns.disable_interface(IfKind::IPv6)?;
 
     let service_type = format!("_{service_label}._{service_protocol}.local.");
     let ip_str: Option<String> = if let Some(ip) = ip {
