@@ -149,7 +149,7 @@ jobs:
         with:
           tool: |
             mdbook@0.5.4
-            mdbook-linkcheck@0.7.7
+            mdbook-linkcheck2@0.12.2
 
       - name: Build book - Generate chapters
         working-directory: crates/generate-book
