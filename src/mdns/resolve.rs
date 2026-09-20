@@ -64,7 +64,7 @@ pub fn resolve_mdns_hostname(
                         } else {
                             hostname = Some(s);
                         }
-                        ip_set.extend(recv_ip_set);
+                        ip_set.extend(recv_ip_set.iter().map(|ip| ip.to_ip_addr()));
                         if short_circuit {
                             util::mdns_daemon_shutdown(&mdns);
                             while let Ok(more_events) = receiver.recv() {
