@@ -13,3 +13,4 @@ git-repository-url = "https://github.com/CramBL/quick-file-transfer"
 site-url = "/man/"
 
 [output.linkcheck]
+command = "mdbook-linkcheck2"
