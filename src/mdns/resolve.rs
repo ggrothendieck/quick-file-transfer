@@ -1,5 +1,5 @@
 use anyhow::Result;
-use mdns_sd::{IfKind, ServiceDaemon};
+use mdns_sd::ServiceDaemon;
 use std::{collections::HashSet, net::IpAddr, thread};
 
 use crate::mdns::util;
@@ -45,7 +45,6 @@ pub fn resolve_mdns_hostname(
 ) -> Result<Option<MdnsServiceInfo>> {
     let hostname = try_clean_hostname(hostname.into());
     let mdns = ServiceDaemon::new()?;
-    mdns.disable_interface(IfKind::IPv6)?;
     let receiver = mdns.resolve_hostname(&hostname, Some(timeout_ms))?;
 
     let resolved_info = thread::scope(|s| {

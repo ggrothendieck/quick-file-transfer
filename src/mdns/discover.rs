@@ -1,5 +1,5 @@
 use anyhow::Result;
-use mdns_sd::{IfKind, ServiceDaemon, ServiceEvent};
+use mdns_sd::{ServiceDaemon, ServiceEvent};
 use std::{
     sync::atomic::{AtomicBool, Ordering},
     thread,
@@ -19,7 +19,6 @@ pub fn discover_service_type(
     let stopflag = AtomicBool::new(false);
 
     let mdns = ServiceDaemon::new()?;
-    mdns.disable_interface(IfKind::IPv6)?;
 
     // Browse for a service type.
     let service_type = format!("_{service_label}._{service_protocol}.local.");
